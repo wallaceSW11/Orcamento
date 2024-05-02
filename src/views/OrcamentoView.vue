@@ -104,22 +104,26 @@
       <v-row no-gutters>
         <v-col 
           cols="6"
-          class="pr-2"
+          class="pl-2 pr-1"
         >
           <v-btn
+            class="ma-0 pa-0"
             width="100%"
+            @click="descartarAlteracoes"
           >
             Cancelar
           </v-btn>
         </v-col>
         <v-col 
           cols="6"
-          class="pl-2"
+          class="pl-1 pr-2"
         >
           <v-btn 
             variant="tonal"
             color="primary"
             width="100%"
+            class="ma-0 pa-0"
+            @click="salvarAlteracoes"
           >
             Salvar
           </v-btn>
@@ -135,10 +139,23 @@
 
 <script setup>
 import { ref, reactive } from 'vue';
+import { useRouter  } from 'vue-router';
 import OrcamentoModel from '@/models/orcamento-model.js';
+
+const route = useRouter();
 
 let orcamento = reactive(new OrcamentoModel());
 let salvarCliente = ref(false);
+
+// useOrcamento
+function salvarAlteracoes() {
+  //validar coisas
+  route.push({name: 'Orçamentos'});
+}
+
+function descartarAlteracoes() {
+  route.push({name: 'Orçamentos'});
+}
 
 let cabecalho = ref([
     {
@@ -199,6 +216,9 @@ let itens = ref([
 .rodape {
   position: fixed;
   bottom: 0;
+  left: 0;
   width: 100%;
+  padding: 0;
+  margin: 0;
 }
 </style>
