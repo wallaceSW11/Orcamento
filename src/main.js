@@ -13,7 +13,7 @@ import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 
-import { VBtn } from 'vuetify/components/VBtn'
+//import { VBtn } from 'vuetify/components/VBtn'
 
 // const myCustomLightTheme = {
 //   dark: false,

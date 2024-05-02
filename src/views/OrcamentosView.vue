@@ -5,7 +5,6 @@
         :items="orcamentos"
         :items-per-page="-1"
         :headers="cabecalho"
-        height="300px"
         no-filter
         mobile-breakpoint="sm"
       >
@@ -47,7 +46,7 @@
   <div class="botao-flutuante">
     <v-btn
       icon
-      @click="() => {}"
+      to="/orcamento"
       color="primary"
     >
       <v-icon large>mdi-plus</v-icon>
