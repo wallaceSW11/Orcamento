@@ -1,0 +1,354 @@
+:root {
+  --cor_primaria: #FFDE59;
+}
+
+* {
+  /*outline: 1px solid red;*/
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  max-width: 210mm;
+  max-height: 297mm;
+  -webkit-print-color-adjust:exact !important;
+  print-color-adjust:exact !important;
+  background-image: url('fundo_1.jpg');
+  background-size: 210mm 297mm;
+  ;
+}
+
+@page {
+  size: A4;
+  margin: 0;
+}
+
+@media print {
+    html,
+    body {
+      width: 210mm;
+      height: 297mm;
+      overflow: hidden;
+    }
+  }
+
+.espacamento-lateral {
+  padding: 0 100px;  
+}
+
+.cabecalho {
+  display: flex;
+  height: 320px;
+  padding-top: 150px;
+}
+
+.logo img {
+  width: 150px;
+  height: 150px;
+}
+
+.titulo {
+  display: flex;
+  flex-direction: column;
+  margin: 22px auto;
+}
+
+.titulo-orcamento {
+  font-size: 60px;
+  font-weight: 800;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-style: italic;
+  color: var(--cor_primaria);
+}
+
+.titulo-texto-numero {
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.titulo-numero {
+  font-weight: 900;
+  font-size: 20px;
+  margin-left: 5px;
+  color: darkred;
+}
+
+.texto-numero {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: end;
+}
+
+.tabela {
+  display: flex;
+  /*min-height: calc(100dvh - 300px);*/
+  /*border: 1px solid red;*/
+}
+
+table {
+  width: 100%;
+  height: 200px;
+  border-collapse: collapse;
+  margin: 0 100px;
+  font-size: 20px;
+}
+
+table tr {
+  line-height: 30px;
+  height: 30px;
+}
+
+table thead {
+  background-color: var(--cor_primaria);
+  color: whi;
+}
+
+td {
+  padding: 0 10px;
+  color: white;
+}
+
+.cor-fundo-coluna {
+  background-color: rgba(255, 222, 89, .7);
+  color: white;
+  
+}
+
+.texto-esquerda {
+  text-align: right;
+}
+
+.resumo {
+  /*border: 1px solid yellow;*/
+  position: fixed;
+  bottom: 80px;
+  width: 100%;
+  background-color: var(--cor_primaria);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 100px;
+}
+
+.resumo-observacao {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+}
+
+.resumo-total {
+  font-size: 20px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+}
+
+.valor-total {
+  color: darkred;
+  
+}
+
+.espacamento-top-bottom {
+  padding: 10px 0;
+}
+
+.validade-orcamento {
+  font-size: 18px;
+  color: darkred;
+}
+
+.rodape {
+  /*border: 1px solid purple;*/
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 80px;
+  padding: 10px 100px;
+  background-color: rgba(255, 222, 89, .7);
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.rodape-contato {
+  display: flex;
+  justify-content: space-around;
+}
+
+.rodape-endereco {
+  display: flex;
+  justify-content: center;
+}
+
+
+
+
+
+
+
+/*
+
+ {
+  //outline: 1px solid red;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.corpo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: white;
+  width: 210mm;
+  height: 297mm;
+  padding-top: 160px;
+  
+}
+
+.corpo-tabela {
+  height: calc(100vh - 300px);
+  border: 1px solid black;
+}
+
+@page {
+  size: A4;
+  margin: 0;
+}
+
+@media print {
+  html,
+  body {
+    width: 210mm;
+    height: 297mm;
+    overflow: hidden;
+  }
+}
+
+html,
+body {
+  //width: 210mm;
+  //height: 297mm;
+  -webkit-print-color-adjust:exact !important;
+  print-color-adjust:exact !important;
+}
+
+.fundo{
+  width: 210mm;
+  height: 297mm;
+  filter: brightness(50%);
+}
+
+.container {
+  padding: 0 100px;
+}
+
+.logo img {
+  width: 150px;
+  height: 150px;
+}
+
+.dados-fixos {
+  display: flex;
+  
+}
+
+.dados-empresa {
+  display: flex;
+}
+
+.cabecalho {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.titulo-orcamento {
+  font-size: 60px;
+  font-weight: 800;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-style: italic;
+  color: var(--cor_primaria);
+}
+
+.titulo-valor {
+  display: flex;
+  
+}
+
+.tabela-itens {
+  margin-top: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table tr {
+  line-height: 30px;
+}
+
+table thead {
+  background-color: var(--cor_primaria);
+  color: black;
+}
+
+tbody td {
+  padding: 0 10px;
+}
+
+.cor-fundo-coluna {
+  background-color: rgba(255, 222, 89, .5);
+  color: white;
+  
+}
+
+.texto-esquerda {
+  text-align: right;
+}
+
+.data-orcamento {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.negrito {
+  font-weight: 700;
+}
+
+.resumo {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  border-radius: 5px;
+  padding-top: 100px;
+  height: 100px;
+  background-color: var(--cor_primaria);
+  color: black;
+  width: 100%;
+}
+
+.rodape {
+  position: absolute;
+  bottom: 150px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 100px;
+  width: 100%;
+}
+
+.rodape-contato {
+  display: flex;
+  justify-content: space-around;
+}
+
+.rodape-endereco {
+  display: flex;
+  justify-content: center;
+}
+*/
