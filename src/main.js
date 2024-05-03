@@ -32,6 +32,9 @@ import * as directives from 'vuetify/directives'
 // }
 
 const vuetify = createVuetify({
+  // display: {
+  //   mobileBreakpoint: 'sm',
+  // },
   defaults: {
     global: {
       ripple: false,

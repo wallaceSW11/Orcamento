@@ -4,13 +4,14 @@
       <v-data-table
         :items="orcamentos"
         :items-per-page="-1"
-        :headers="cabecalho"
+        :headers="COLUNAS_TABELA_ORCAMENTO"
+        :mobile="tamanhoMobileTablet"
         no-filter
-        mobile-breakpoint="sm"
+        
       >
-        <template #item="{ item }" >
+        <template #item="{ item }" v-if="tamanhoMobileTablet">
           <tr>
-            <td v-if="tamanhoMobileTablet">
+            <td >
               <v-row
                 no-gutters
                 class="pt-2">
@@ -38,6 +39,15 @@
           </tr>
         </template>
 
+        <template v-else #item="{ item }">
+          <tr>
+            <td>{{ item.identificador }}</td>
+            <td>{{ item.cliente.nome }}</td>
+            <td>{{ item.dataCriacao }}</td>
+            <td>{{ item.valorTotal }}</td>
+          </tr>
+        </template>
+
         <template #top> </template>
         <template #bottom> </template>
       </v-data-table>
@@ -55,10 +65,13 @@
 </template>
 
 <script setup>
+import { computed } from "vue";
+import { useDisplay } from "vuetify/lib/framework.mjs";
+import { COLUNAS_TABELA_ORCAMENTO } from '@/constants/orcamento'
 
-import { ref } from 'vue';
+let { smAndDown } = useDisplay();
+let tamanhoMobileTablet = computed(() => smAndDown.value);
 
-const tamanhoMobileTablet = true
 
 const orcamentos = [
   {
@@ -105,33 +118,6 @@ const orcamentos = [
   },
 ];
 
-let cabecalho = ref([
-    {
-      title: "Código",
-      key: "codigo",
-      align: "left",
-      sortable: false
-    },
-    {
-      title: "Cliente",
-      key: "cliente",
-      align: "left",
-      sortable: false
-    },
-    {
-      title: "Data",
-      key: "dataCriacao",
-      align: "left",
-      sortable: false
-    },
-    {
-      title: "Valor ttal",
-      key: "valorTotal",
-      align: "right",
-      sortable: false
-    }
-  ]);
-
 </script>
 
 <style>
@@ -141,8 +127,8 @@ let cabecalho = ref([
 
 .botao-flutuante {
   position: fixed;
-  bottom: 10px;
-  right: 10px;
+  bottom: 20px;
+  right: 20px;
   z-index: 3;
 }
 </style>

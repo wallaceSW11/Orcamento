@@ -19,7 +19,8 @@
         label="Telefone"
         v-model="orcamento.cliente.telefone"
         prepend-inner-icon="mdi-phone"
-        clearable=""
+        clearable
+        hide-details
       />
       </v-col>
     </v-row>
@@ -31,6 +32,7 @@
           v-model="salvarCliente"
           :color="salvarCliente && 'primary' || ''"
           density="compact"
+
           hide-details
         />
       </v-col>
@@ -38,67 +40,7 @@
 
     <hr>
 
-    <v-row
-      no-gutters
-      class="pt-2"
-    >
-      <v-row no-gutters>
-        <v-col>
-          <v-btn
-            color="primary"
-            variant="tonal"
-          >
-            <v-icon>mdi-plus</v-icon>
-            <span>Adicionar item</span>
-          </v-btn>
-        </v-col>
-      </v-row>
-
-      <v-row 
-        no-gutters
-        class="pt-2"
-      >
-        <v-col>
-          <v-data-table
-            :headers="cabecalho"
-            :items="itens"
-            :items-per-page="-1"
-            no-filter
-            mobile-breakpoint="sm"
-            no-data-text="Sem itens adicionados"
-          >
-            <template #item="{ item }">
-              <tr v-if="true">
-                <td>
-                  <v-row no-gutters>
-                    <v-row no-gutters>
-                      <v-col class="d-flex flex-column">
-                        <p class="titulo-itens">Produto/Serviço</p>
-                        <p>{{ item.codigoNome }}</p>
-                      </v-col>
-                      <v-col class="d-flex flex-column flex-grow-0 px-2 align-end">
-                        <p class="titulo-itens">Quantidade</p>
-                        <p class="texto-esquerda">{{ item.quantidade }}</p>
-                      </v-col>
-                      <v-col 
-                        cols="3"
-                        class="d-flex flex-column align-end"
-                      >
-                        <p class="titulo-itens">Valor total</p>
-                        <p>{{ item.valorTotal }}</p>
-                      </v-col>
-                    </v-row>
-
-                  </v-row>
-
-                </td>
-              </tr>
-            </template>
-          </v-data-table>
-        </v-col>
-
-      </v-row>
-    </v-row>
+    <orcamento-item />
 
     <v-footer class="rodape">
       <v-row no-gutters>
@@ -141,11 +83,15 @@
 import { ref, reactive } from 'vue';
 import { useRouter  } from 'vue-router';
 import OrcamentoModel from '@/models/orcamento-model.js';
+import OrcamentoItem from '@/components/OrcamentoItem.vue';
 
 const route = useRouter();
 
 let orcamento = reactive(new OrcamentoModel());
-let salvarCliente = ref(false);
+let salvarCliente = ref(true);
+
+
+
 
 // useOrcamento
 function salvarAlteracoes() {
@@ -156,46 +102,6 @@ function salvarAlteracoes() {
 function descartarAlteracoes() {
   route.push({name: 'Orçamentos'});
 }
-
-let cabecalho = ref([
-    {
-      title: "Código",
-      key: "codigo",
-      align: "left",
-      sortable: false
-    },
-    {
-      title: "Cliente",
-      key: "cliente",
-      align: "left",
-      sortable: false
-    },
-    {
-      title: "Data",
-      key: "dataCriacao",
-      align: "left",
-      sortable: false
-    },
-    {
-      title: "Valor ttal",
-      key: "valorTotal",
-      align: "right",
-      sortable: false
-    }
-  ]);
-
-let itens = ref([
-  {
-    codigoNome: '01 - Mão de obra',
-    quantidade: 1,
-    valorTotal: 'R$ 250,00'
-  },
-  {
-    codigoNome: '02 - Tecido m²',
-    quantidade: 10,
-    valorTotal: 'R$ 2.050,00'
-  }
-])
 
 </script>
 
