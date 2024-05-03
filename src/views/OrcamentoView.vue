@@ -40,7 +40,7 @@
 
     <hr>
 
-    <orcamento-item />
+    <orcamento-item v-model="orcamento" />
 
     <v-footer class="rodape">
       <v-row no-gutters>
@@ -125,6 +125,7 @@ function descartarAlteracoes() {
   left: 0;
   width: 100%;
   padding: 0;
+  padding-bottom: 10px;
   margin: 0;
 }
 </style>

@@ -3,30 +3,57 @@
     v-model="exibir"
     fullscreen
   >
-    <v-card>
+    <v-card class="px-2">
       <v-row
         no-gutters
         class="d-flex flex-column"
       >
-        <v-row no-gutters>
-          <v-col>
-            <v-text-field
-              label="Item"
-            />
-          </v-col>
-        </v-row>
-        <v-row no-gutters>
-          <v-col>
-            <v-text-field
-              label="Quantidade"
-            />
-          </v-col>
-          <v-col>
-            <v-text-field
-              label="Valor"
-            />
-          </v-col>
-        </v-row>
+        <v-col>
+          <v-row no-gutters>
+            <v-col>
+              <v-text-field
+                label="Item"
+                v-model="orcamentoItem.item"
+                autofocus
+              />
+            </v-col>
+          </v-row>
+          <v-row no-gutters>
+            <v-col class="pr-1">
+              <v-text-field
+                label="Quantidade"
+                v-model="orcamentoItem.quantidade"
+              />
+            </v-col>
+            <v-col class="pl-1">
+              <v-text-field
+                label="Valor"
+                v-model="orcamentoItem.valorUnitario"
+              />
+            </v-col>
+          </v-row>
+          <v-row 
+            no-gutters
+            
+          >
+            <v-col class="d-flex justify-end">
+              <v-switch
+                label="Continuar adicionando"
+                v-model="continuarAdicionando"
+                :color="continuarAdicionando && 'primary' || ''"
+              />
+            </v-col>
+
+          </v-row>
+        </v-col>
+      </v-row>
+
+      <v-row no-gutters>
+        <v-col class="d-flex flex-column align-end justify-end">
+          <p class="texto-titulo-valor">Valor total:</p>
+          <p class="texto-valor">R$ {{ orcamentoItem.valorTotal() }}</p>
+        </v-col>
+
       </v-row>
 
       <v-card-actions>
@@ -74,20 +101,20 @@
       <v-col>
         <v-data-table
           :headers="COLUNAS_TABELA_ORCAMENTO_ITEM"
-          :items="itens"
+          :items="orcamento.itens"
           :items-per-page="-1"
           no-filter
-          mobile-breakpoint="sm"
+          :mobile="tamanhoMobileTablet"
           no-data-text="Sem itens adicionados"
         >
-          <template #item="{ item }">
-            <tr v-if="true">
+          <template #item="{ item }" v-if="tamanhoMobileTablet">
+            <tr>
               <td>
                 <v-row no-gutters>
                   <v-row no-gutters>
                     <v-col class="d-flex flex-column">
                       <p class="titulo-itens">Produto/Serviço</p>
-                      <p>{{ item.codigoNome }}</p>
+                      <p>{{ item.item }}</p>
                     </v-col>
                     <v-col class="d-flex flex-column flex-grow-0 px-2 align-end">
                       <p class="titulo-itens">Quantidade</p>
@@ -98,13 +125,22 @@
                       class="d-flex flex-column align-end"
                     >
                       <p class="titulo-itens">Valor total</p>
-                      <p>{{ item.valorTotal }}</p>
+                      <p>{{ item.valorTotal() }}</p>
                     </v-col>
                   </v-row>
 
                 </v-row>
 
               </td>
+            </tr>
+          </template>
+
+          <template #item="{ item }" v-else>
+            <tr>
+              <td>{{ item.item }}</td>
+              <td>{{ item.quantidade }}</td>
+              <td>{{ item.valorUnitario  }}</td>
+              <td>{{ item.valorTotal() }}</td>
             </tr>
           </template>
         </v-data-table>
@@ -117,19 +153,34 @@
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue';
+import { reactive, ref, computed } from 'vue';
 import { COLUNAS_TABELA_ORCAMENTO_ITEM } from '@/constants/orcamento-item'
+import OrcamentoItemModel from '@/models/orcamento-item-model';
+import OrcamentoModel from '@/models/orcamento-model';
+import { useDisplay } from "vuetify/lib/framework.mjs";
+let { smAndDown } = useDisplay();
+let tamanhoMobileTablet = computed(() => smAndDown.value);
 
-//let exibir = defineModel(false);
+let orcamento = defineModel(new OrcamentoModel());
+let orcamentoItem = reactive(new OrcamentoItemModel());
 
 let exibir= ref(false);
+//let itens = reactive([]);
+let continuarAdicionando = ref(false);
 
-let itens = reactive([]);
-
-function salvarAlteracoes() {
-  exibir.value = false;
+function camposObrigatoriosPreenchidos() {
+  return true;
 }
 
+function salvarAlteracoes() {
+  if (!camposObrigatoriosPreenchidos())
+    return;
+
+  orcamento.value.itens.push(new OrcamentoItemModel(orcamentoItem));
+
+  exibir.value = continuarAdicionando.value;
+  Object.assign(orcamentoItem, new OrcamentoItemModel());
+}
 function descartarAlteracoes() {
   exibir.value = false;
 }

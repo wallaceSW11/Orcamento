@@ -1,24 +1,24 @@
 const COLUNAS_TABELA_ORCAMENTO_ITEM = [
   {
-    title: "Código",
-    key: "codigo",
+    title: "Item",
+    key: "item",
     align: "left",
     sortable: false
   },
   {
-    title: "Cliente",
-    key: "cliente",
+    title: "Quantidade",
+    key: "quantidade",
     align: "left",
     sortable: false
   },
   {
-    title: "Data",
-    key: "dataCriacao",
+    title: "Valor unit",
+    key: "valorUnitarrio",
     align: "left",
     sortable: false
   },
   {
-    title: "Valor ttal",
+    title: "Valor total",
     key: "valorTotal",
     align: "right",
     sortable: false
